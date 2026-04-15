@@ -7,7 +7,7 @@
 ---
 
 ## 👨‍🏫 Giảng viên hướng dẫn
-* **TS. Lê Thành Sách**
+* **TS. Trương Vĩnh Lân**
 
 ## 👥 Danh sách thành viên nhóm
 | Họ và tên | MSSV | Email | Tỉ lệ đóng góp |
