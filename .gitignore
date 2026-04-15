@@ -1,0 +1,32 @@
+# Môi trường ảo (Virtual Environments)
+.venv/
+venv/
+env/
+bin/
+lib/
+develop-eggs/
+
+# Bộ nhớ đệm Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook & Colab
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Dữ liệu và Đặc trưng (Không nên push file nặng lên GitHub)
+data/
+features/*.npy
+features/*.h5
+*.zip
+*.csv
+*.xlsx
+
+# File hệ thống và IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Nhật ký (Logs)
+*.log
