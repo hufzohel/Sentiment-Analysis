@@ -1,7 +1,7 @@
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 
 def build_pipeline(model_name="logistic", max_features=5000):
@@ -17,7 +17,7 @@ def build_pipeline(model_name="logistic", max_features=5000):
     
     elif model_name == "svm":
         # Linear kernel is standard for high-dimensional text data
-        classifier = SVC(kernel='linear', random_state=42) 
+        classifier = LinearSVC(random_state=42, dual=False)
     
     elif model_name == "naive_bayes":
         classifier = MultinomialNB()

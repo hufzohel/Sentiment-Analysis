@@ -26,5 +26,14 @@ def evaluate_model(y_true, y_pred, model_name, target_names=['Negative', 'Positi
     plt.title(f'Confusion Matrix: {model_name.upper()}')
     
     # tight_layout helps prevent labels from getting cut off in notebooks
+    # ... (code vẽ heatmap của bạn ở trên) ...
+    plt.title(f'Confusion Matrix: {model_name.upper()}')
     plt.tight_layout() 
-    plt.show()
+    
+    # TỰ ĐỘNG LƯU ẢNH THAY VÌ BẬT LÊN MÀN HÌNH
+    import os
+    os.makedirs("../images", exist_ok=True)
+    plt.savefig(f"../images/cm_{model_name}.png", dpi=300)
+    
+    # ĐÓNG ĐỒ THỊ LẠI ĐỂ CODE CHẠY TIẾP ĐẾN MODEL SAU (QUAN TRỌNG)
+    plt.close()

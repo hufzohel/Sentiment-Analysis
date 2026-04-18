@@ -1,11 +1,11 @@
-# Cơ sở và Tiền xử lý
+# basics
 numpy>=1.23.0
 pandas>=1.5.0
 scikit-learn>=1.2.0
 nltk>=3.8.0
-vnderSentiment>=3.3.2
+vaderSentiment>=3.3.2
 
-# Trình xử lý tiếng Việt (Quan trọng cho PhoBERT)
+# vietnamese processing
 pyvi>=0.1.1
 underthesea>=6.0.0
 
@@ -14,10 +14,10 @@ torch>=2.0.0
 transformers>=4.30.0
 sentencepiece>=0.1.99
 
-# Trực quan hóa (Cho bước EDA bắt buộc)
+# visualization
 matplotlib>=3.6.0
 seaborn>=0.12.0
 wordcloud>=1.9.0
 
-# Lưu trữ đặc trưng (Yêu cầu nộp file .npy/.h5)
+# save
 h5py>=3.8.0
