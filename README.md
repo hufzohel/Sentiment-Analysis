@@ -26,7 +26,8 @@ Dự án này thực hiện một pipeline học máy hoàn chỉnh để giải
 ## 📂 Cấu trúc thư mục
 Tuân thủ theo yêu cầu của đề bài:
 * `notebooks/`: Chứa các file Google Colab chính (.ipynb) để thực hiện EDA và huấn luyện mô hình.
-* `modules/`: Các script Python (.py) hỗ trợ tiền xử lý và trích xuất đặc trưng.
+* `src/`: Các script Python (.py) cho pipeline truyền thống.
+* `deep_learning_src/`: Các script Python (.py) cho pipeline deep learning.  
 * `reports/`: Báo cáo cuối kỳ định dạng PDF và các hình ảnh trực quan hóa dữ liệu.
 * `features/`: Các file đặc trưng/embeddings đã trích xuất, lưu dưới dạng `.npy` hoặc `.h5`.
 * `data/`: Script tự động tải dữ liệu từ nguồn công khai (không lưu trữ dữ liệu trực tiếp trên repo).
