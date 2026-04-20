@@ -31,3 +31,4 @@ saved_models/*.pth
 
 # Nhật ký (Logs)
 *.log
+data/glove.2024.wikigiga.100d.txt

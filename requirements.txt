@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cu121
 # basics
 numpy>=1.23.0
 pandas>=1.5.0
@@ -13,7 +14,6 @@ underthesea>=6.0.0
 torch>=2.0.0
 transformers>=4.30.0
 sentencepiece>=0.1.99
-torchtext
 
 # visualization
 matplotlib>=3.6.0

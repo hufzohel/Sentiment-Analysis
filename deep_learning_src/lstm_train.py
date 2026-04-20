@@ -6,7 +6,8 @@ from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
 import os
 import joblib
-from torchtext.vocab import GloVe
+# from torchtext.vocab import GloVe
+import numpy as np
 
 # Import các module custom của bạn
 from preprocess import clean_text
@@ -57,19 +58,54 @@ print(f"  -> Tập Test:  {len(X_test)} câu (Cất vào két sắt)")
 print("\n[2/4] Thiết lập Dữ liệu vào PyTorch...")
 word2idx = build_vocabulary(X_train, MAX_VOCAB_SIZE, "../saved_models/lstm_word2idx.joblib")
 
-print("\n[2.5/4] Đang tải Pre-trained GloVe (Có thể mất vài phút cho lần đầu tiên)...")
-glove = GloVe(name='6B', dim=100) 
+print("\n[2.5/4] Đang nạp Pre-trained GloVe bằng Python thuần...")
+glove_dict = {}
+glove_path = "../data/wiki_giga_2024_100_MFT20_vectors_seed_2024_alpha_0.75_eta_0.05.050_combined.txt"
+
+# Check xem đã tải file về chưa, chưa tải thì chửi luôn cho nhanh
+if not os.path.exists(glove_path):
+    print(f"\n LỖI TRÍ MẠNG: Không tìm thấy file {glove_path}!")
+    print("Vui lòng lên mạng tải file glove.6B.100d.txt (từ bộ GloVe Stanford) và ném vào thư mục data/")
+    exit()
+
+# Mở file txt lên và nhặt từng từ bỏ vào Dictionary
+with open(glove_path, 'r', encoding='utf-8') as f:
+    for line in f:
+        values = line.split()
+        word = values[0]
+        # values[1:] chứa 100 con số, ép kiểu về float32 của numpy
+        try:
+            # Cố gắng ép kiểu về số thực
+            vector = np.asarray(values[1:], dtype='float32')
+            
+            # Đảm bảo vector có đúng 100 chiều (100d) thì mới lấy
+            if len(vector) == 100:
+                glove_dict[word] = vector
+        except ValueError:
+            # Nếu gặp dòng lỗi (chứa ký tự lạ, dấu chấm...), bỏ qua luôn
+            continue
+        vector = np.asarray(values[1:], dtype='float32')
+        glove_dict[word] = vector
 
 print("[3/4] Đang đóng gói dữ liệu và khớp từ điển với GloVe...")
 VOCAB_SIZE = len(word2idx)
 pretrained_embeddings = torch.zeros(VOCAB_SIZE, 100)
 
+found_words = 0
 for word, idx in word2idx.items():
-    if word in glove.stoi: 
-        pretrained_embeddings[idx] = glove.vectors[glove.stoi[word]]
+    if word in glove_dict: 
+        # Nếu từ của mình CÓ trong từ điển của Stanford thì lấy vector của nó
+        pretrained_embeddings[idx] = torch.tensor(glove_dict[word])
+        found_words += 1
     else:
-        pretrained_embeddings[idx] = torch.randn(100)
+        # Từ lóng, sai chính tả... thì đành random vậy
+        # Thu nhỏ tiếng ồn lại để không át mất GloVe
+        pretrained_embeddings[idx] = torch.normal(mean=0, std=0.1, size=(100,))
 
+print(f"   -> Đã khớp thành công {found_words}/{VOCAB_SIZE} từ vựng từ GloVe!")
+
+# ---------------------------------------------------------
+# [Phần tiếp theo: Khởi tạo model và đưa pretrained_embeddings vào]
 print(f"\n[4/4] Khởi tạo kiến trúc Bi-LSTM với GloVe Embeddings...")
 model = SentimentLSTM(
     vocab_size=VOCAB_SIZE, 
@@ -79,7 +115,7 @@ model = SentimentLSTM(
     n_layers=2, 
     bidirectional=True, 
     dropout=0.5,
-    pretrained_embeddings=pretrained_embeddings 
+    pretrained_embeddings=pretrained_embeddings  # <--- Bơm nó vào đây!
 )
 model = model.to(device)
 
