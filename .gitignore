@@ -22,7 +22,7 @@ features/*.h5
 *.zip
 *.csv
 *.xlsx
-saved_models/*.pth
+# saved_models/*.pth
 
 # File hệ thống và IDE
 .DS_Store
