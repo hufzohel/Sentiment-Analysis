@@ -19,6 +19,7 @@ def plot_class_distribution(df, label_col='sentiment'):
                     ha='center', va='baseline', fontsize=11, color='black', xytext=(0, 5),
                     textcoords='offset points')
     plt.tight_layout()
+    plt.savefig('../images/class_distribution.png', dpi=300)
     plt.show()
 
 def plot_text_length(df, text_col='clean_text', label_col='sentiment'):
@@ -36,6 +37,7 @@ def plot_text_length(df, text_col='clean_text', label_col='sentiment'):
     plt.ylabel('Tần suất')
     plt.xlim(0, 1000) # Cắt biểu đồ ở 1000 từ để dễ nhìn
     plt.tight_layout()
+    plt.savefig('../images/text_length.png', dpi=300)
     plt.show()
 
 def plot_word_clouds(df, text_col='clean_text', label_col='sentiment'):
@@ -60,7 +62,7 @@ def plot_word_clouds(df, text_col='clean_text', label_col='sentiment'):
     ax[1].axis('off')
     
     plt.tight_layout()
-    plt.savefig('images/wordcloud.png', dpi=300)
+    plt.savefig('../images/word_clouds.png', dpi=300)
     plt.show()
 
 
@@ -79,14 +81,11 @@ if __name__ == "__main__":
         
     print("Vẽ phân phối nhãn...")
     plot_class_distribution(df)
-    plt.savefig('images/class_distribution.png', dpi=300)
     
     print("Vẽ phân phối chiều dài...")
     plot_text_length(df)
-    plt.savefig('images/text_length.png', dpi=300)
     
     print("Vẽ Word Cloud...")
     plot_word_clouds(df)
-    plt.savefig('images/word_clouds.png', dpi=300)
     
     print("Đã lưu toàn bộ ảnh vào thư mục 'images/'!")
