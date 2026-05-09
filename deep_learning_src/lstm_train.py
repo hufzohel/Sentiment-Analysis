@@ -115,7 +115,7 @@ model = SentimentLSTM(
     n_layers=2, 
     bidirectional=True, 
     dropout=0.5,
-    pretrained_embeddings=pretrained_embeddings  # <--- Bơm nó vào đây!
+    pretrained_embeddings=pretrained_embeddings  
 )
 model = model.to(device)
 
